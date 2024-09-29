@@ -11,19 +11,19 @@ using RegionSyd.Model;
 
 namespace RegionSyd.Repositories
 {
-    public class AmbulanceRepository : IRepository<Ambulance>
+    public class AmbulanceRepo : IRepository<Ambulance>
     {
         private readonly string _connectionString;
 
-        public AmbulanceRepository()
+        public AmbulanceRepo()
         {
             _connectionString = App.ConnectionString; // Hent forbindelsesstrengen fra App
         }
 
-        public IEnumerable<Ambulance> GetAll()
+        public IEnumerable<Ambulance> GetAll() //Bruger IRepository.cs interface skabelonen og henter alle entiteter
         {
             var ambulances = new List<Ambulance>();
-            string query = "SELECT * FROM Ambulance"; // Sørg for at dette er navnet på din tabel
+            string query = "SELECT * FROM dbo.Ambulance"; // Sørg for at dette "dbo.Ambulance" er navnet på din tabel i sql
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -53,7 +53,7 @@ namespace RegionSyd.Repositories
         public Ambulance GetById(int id)
         {
             Ambulance ambulance = null;
-            string query = "SELECT * FROM Ambulance WHERE AmbulanceID = @AmbulanceID";
+            string query = "SELECT * FROM dbo.Ambulance WHERE AmbulanceID = @AmbulanceID"; 
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -83,7 +83,7 @@ namespace RegionSyd.Repositories
 
         public void Add(Ambulance ambulance)
         {
-            string query = "INSERT INTO Ambulance (AmbulanceNumber, StatusID, Capacity, RegionID, LastUpdated) VALUES (@AmbulanceNumber, @StatusID, @Capacity, @RegionID, @LastUpdated)";
+            string query = "INSERT INTO dbo.Ambulance (AmbulanceNumber, StatusID, Capacity, RegionID, LastUpdated) VALUES (@AmbulanceNumber, @StatusID, @Capacity, @RegionID, @LastUpdated)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -100,7 +100,7 @@ namespace RegionSyd.Repositories
 
         public void Update(Ambulance ambulance)
         {
-            string query = "UPDATE Ambulance SET AmbulanceNumber = @AmbulanceNumber, StatusID = @StatusID, Capacity = @Capacity, RegionID = @RegionID, LastUpdated = @LastUpdated WHERE AmbulanceID = @AmbulanceID";
+            string query = "UPDATE dbo.Ambulance SET AmbulanceNumber = @AmbulanceNumber, StatusID = @StatusID, Capacity = @Capacity, RegionID = @RegionID, LastUpdated = @LastUpdated WHERE AmbulanceID = @AmbulanceID";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -118,7 +118,7 @@ namespace RegionSyd.Repositories
 
         public void Delete(int id)
         {
-            string query = "DELETE FROM Ambulance WHERE AmbulanceID = @AmbulanceID";
+            string query = "DELETE FROM dbo.Ambulance WHERE AmbulanceID = @AmbulanceID";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

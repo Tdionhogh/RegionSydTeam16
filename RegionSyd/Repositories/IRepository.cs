@@ -14,4 +14,9 @@ namespace RegionSyd.Repositories
         void Update(T entity);     // Opdater en eksisterende entitet
         void Delete(int id);       // Slet en entitet ved ID
     }
+
+    
 }
+/*Et generisk interface tillader at man kan arbejde med forskellige klaser(typer) så man ikke skal oprette en
+for hvert entitet. "T" i Where T : class repræsenterer en hvilken som helst klasse. 
+Fx i AmbulanceRepo har jeg nu implementeret IRepository<Ambulance> så man kan bruge denne interface skabelon.*/
