@@ -20,7 +20,7 @@ namespace RegionSyd
         public MainWindow()
         {
             InitializeComponent();
-            _ambulanceRepository = new AmbulanceRepository(); // Opretter en instans af din repository
+            _ambulanceRepository = new AmbulanceRepo(); // Opretter en instans af din repository
         }
 
         private void AddAmbulanceButton_Click(object sender, RoutedEventArgs e)
