@@ -14,7 +14,7 @@ using RegionSyd.Repositories;
 using System.Collections.Generic;
 
 
-namespace RegionSyd
+namespace RegionSyd.View
 {
     public partial class MainWindow : Window
     {
@@ -79,7 +79,7 @@ namespace RegionSyd
                     AmbulanceID = (AmbulanceComboBox.SelectedItem as Ambulance)?.AmbulanceID ?? 0,
                     TaskTypeID = (TaskTypeComboBox.SelectedItem as TaskType)?.TaskTypeID ?? 0,
                     PatientID = (PatientComboBox.SelectedItem as Patient)?.PatientID ?? 0,
-                    FromAdressID = (FromAddressComboBox.SelectedItem as FromAddress)?.FromAddressID ?? 0,
+                    FromAddressID = (FromAddressComboBox.SelectedItem as FromAddress)?.FromAddressID ?? 0,
                     ToAddressID = (ToAddressComboBox.SelectedItem as ToAddress)?.ToAddressID ?? 0,
                     StatusID = (StatusComboBox.SelectedItem as Taskstatus)?.StatusID ?? 0,
                     PickupTime = DateTime.Parse("2024-01-01 10:00"),

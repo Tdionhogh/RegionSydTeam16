@@ -13,6 +13,6 @@ namespace RegionSyd.Model
         public string LastName { get; set; } //efternavn til patienten
         public string CprNumber { get; set; } //cprnummer
         public string TlfNumber { get; set; } //tlfnummer                          
-        public string FullName => $"{FirstName} {LastName}"; // Egenskab til at returnere det fulde navn
+
     }
 }

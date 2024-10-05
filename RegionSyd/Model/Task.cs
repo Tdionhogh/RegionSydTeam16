@@ -16,7 +16,7 @@ namespace RegionSyd.Model
         public DateTime PickupTime { get; set; } //patient afhentningstid
         public DateTime DropoffTime { get; set; } //patient afsætningstid
         public DateTime TaskTime { get; set; } //opgavetid
-        public int FromAdressID { get; set; } //FK til FromAddress
+        public int FromAddressID { get; set; } //FK til FromAddress
         public int ToAddressID { get; set; } //FK til ToAddress
         public int StatusID { get; set; } //FK til Taskstatus
         public DateTime LastUpdated { get; set; } //seneste opdatering

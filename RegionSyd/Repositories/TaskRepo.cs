@@ -42,7 +42,7 @@ namespace RegionSyd.Repositories
                             PickupTime = (DateTime)reader["PickupTime"],
                             DropoffTime = (DateTime)reader["DropoffTime"],
                             TaskTime = (DateTime)reader["TaskTime"],
-                            FromAdressID = (int)reader["FromAddressID"],
+                            FromAddressID = (int)reader["FromAddressID"],
                             ToAddressID = (int)reader["ToAddressID"],
                             StatusID = (int)reader["StatusID"],
                             LastUpdated = (DateTime)reader["LastUpdated"]
@@ -99,7 +99,11 @@ namespace RegionSyd.Repositories
                         ambulances.Add(new Ambulance
                         {
                             AmbulanceID = (int)reader["AmbulanceID"],
-                            AmbulanceNumber = (string)reader["AmbulanceNumber"] // Antag at der er et felt "Name"
+                            AmbulanceNumber = (string)reader["AmbulanceNumber"],
+                            StatusID = (int)reader["StatusID"],
+                            Capacity = (int)reader["Capacity"],
+                            RegionID = (int)reader["RegionID"],
+                            LastUpdated = (DateTime)reader["LastUpdated"]
                         });
                     }
                 }
@@ -126,7 +130,7 @@ namespace RegionSyd.Repositories
                         taskTypes.Add(new TaskType
                         {
                             TaskTypeID = (int)reader["TaskTypeID"],
-                            TypeOfTask = (string)reader["Name"] // Antag at der er et felt "Name"
+                            TypeOfTask = (string)reader["TypeOfTask"] // Antag at der er et felt "Name"
                         });
                     }
                 }
@@ -139,7 +143,7 @@ namespace RegionSyd.Repositories
         public async Task<List<Patient>> GetPatientsAsync()
         {
             var patients = new List<Patient>();
-            string query = "SELECT PatientID, FirstName, LastName FROM dbo.Patient"; // Antag at der er kolonner for FirstName og LastName
+            string query = "SELECT * FROM dbo.Patient"; // Antag at der er kolonner for FirstName og LastName
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -153,8 +157,10 @@ namespace RegionSyd.Repositories
                         patients.Add(new Patient
                         {
                             PatientID = (int)reader["PatientID"],
-                            FirstName = (string)reader["Name"], 
-                            LastName = (string)reader["LastName"]
+                            FirstName = (string)reader["FirstName"], 
+                            LastName = (string)reader["LastName"],
+                            CprNumber = (string)reader["CprNumber"],
+                            TlfNumber = (string)reader["TlfNumber"]
                         });
                     }
                 }
@@ -181,7 +187,11 @@ namespace RegionSyd.Repositories
                         fromAddresses.Add(new FromAddress
                         {
                             FromAddressID = (int)reader["FromAddressID"],
-                            StreetName = (string)reader["StreetName"] 
+                            StreetName = (string)reader["StreetName"],
+                            City = (string)reader["City"],
+                            AddressType = (string)reader["AddressType"],
+                            ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"]
                         });
                     }
                 }
@@ -207,7 +217,10 @@ namespace RegionSyd.Repositories
                         toAddresses.Add(new ToAddress
                         {
                             ToAddressID = (int)reader["ToAddressID"],
-                            StreetName = (string)reader["StreetName"] // Antag at der er et felt "Address"
+                            StreetName = (string)reader["StreetName"],
+                            City = (string)reader["City"],
+                            ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"]
                         });
                     }
                 }
@@ -254,7 +267,7 @@ namespace RegionSyd.Repositories
                 command.Parameters.AddWithValue("@AmbulanceID", newTask.AmbulanceID);
                 command.Parameters.AddWithValue("@TaskTypeID", newTask.TaskTypeID);
                 command.Parameters.AddWithValue("@PatientID", newTask.PatientID);
-                command.Parameters.AddWithValue("@FromAddressID", newTask.FromAdressID);
+                command.Parameters.AddWithValue("@FromAddressID", newTask.FromAddressID);
                 command.Parameters.AddWithValue("@ToAddressID", newTask.ToAddressID);
                 command.Parameters.AddWithValue("@StatusID", newTask.StatusID);
                 command.Parameters.AddWithValue("@PickupTime", newTask.PickupTime);
