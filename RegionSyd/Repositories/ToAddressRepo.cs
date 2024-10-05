@@ -36,7 +36,8 @@ namespace RegionSyd.Repositories
                             ToAddressID = (int)reader["ToAddressID"],
                             StreetName = (string)reader["StreetName"],
                             City = (string)reader["City"],
-                            ZipCode = (int)reader["ZipCode"]
+                            ZipCodeID = (int)reader["ZipCodeID"], // Retter til ZipCodeID
+                            ZipCodeNr = (string)reader["ZipCodeNr"] // Retter til ZipCodeNr
                         });
                     }
                 }
@@ -65,7 +66,8 @@ namespace RegionSyd.Repositories
                             ToAddressID = (int)reader["ToAddressID"],
                             StreetName = (string)reader["StreetName"],
                             City = (string)reader["City"],
-                            ZipCode = (int)reader["ZipCode"]
+                            ZipCodeID = (int)reader["ZipCodeID"], // Retter til ZipCodeID
+                            ZipCodeNr = (string)reader["ZipCodeNr"] // Retter til ZipCodeNr
                         };
                     }
                 }
@@ -76,14 +78,15 @@ namespace RegionSyd.Repositories
 
         public void Add(ToAddress toAddress)
         {
-            string query = "INSERT INTO dbo.ToAddress (StreetName, City, ZipCode) VALUES (@StreetName, @City, @ZipCode)"; // Brug dbo her
+            string query = "INSERT INTO dbo.ToAddress (StreetName, City, ZipCodeID, ZipCodeNr) VALUES (@StreetName, @City, @ZipCodeID, @ZipCodeNr)"; // Brug dbo her
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@StreetName", toAddress.StreetName);
                 command.Parameters.AddWithValue("@City", toAddress.City);
-                command.Parameters.AddWithValue("@ZipCode", toAddress.ZipCode);
+                command.Parameters.AddWithValue("@ZipCodeID", toAddress.ZipCodeID); // Retter til ZipCodeID
+                command.Parameters.AddWithValue("@ZipCodeNr", toAddress.ZipCodeNr); // Retter til ZipCodeNr
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -91,14 +94,15 @@ namespace RegionSyd.Repositories
 
         public void Update(ToAddress toAddress)
         {
-            string query = "UPDATE dbo.ToAddress SET StreetName = @StreetName, City = @City, ZipCode = @ZipCode WHERE ToAddressID = @ToAddressID"; // Brug dbo her
+            string query = "UPDATE dbo.ToAddress SET StreetName = @StreetName, City = @City, ZipCodeID = @ZipCodeID, ZipCodeNr = @ZipCodeNr WHERE ToAddressID = @ToAddressID"; // Brug dbo her
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@StreetName", toAddress.StreetName);
                 command.Parameters.AddWithValue("@City", toAddress.City);
-                command.Parameters.AddWithValue("@ZipCode", toAddress.ZipCode);
+                command.Parameters.AddWithValue("@ZipCodeID", toAddress.ZipCodeID); // Retter til ZipCodeID
+                command.Parameters.AddWithValue("@ZipCodeNr", toAddress.ZipCodeNr); // Retter til ZipCodeNr
                 command.Parameters.AddWithValue("@ToAddressID", toAddress.ToAddressID);
                 connection.Open();
                 command.ExecuteNonQuery();

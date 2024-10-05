@@ -36,8 +36,9 @@ namespace RegionSyd.Repositories
                             FromAddressID = (int)reader["FromAddressID"],
                             StreetName = (string)reader["StreetName"],
                             City = (string)reader["City"],
-                            ZipCode = (int)reader["ZipCode"],
-                            AddressType = (string)reader["AddressType"]
+                            AddressType = (string)reader["AddressType"],
+                            ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"] // Retter til ZipCodeNr
                         });
                     }
                 }
@@ -66,8 +67,9 @@ namespace RegionSyd.Repositories
                             FromAddressID = (int)reader["FromAddressID"],
                             StreetName = (string)reader["StreetName"],
                             City = (string)reader["City"],
-                            ZipCode = (int)reader["ZipCode"],
-                            AddressType = (string)reader["AddressType"]
+                            AddressType = (string)reader["AddressType"],
+                            ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"] // Retter til ZipCodeNr
                         };
                     }
                 }
@@ -78,15 +80,16 @@ namespace RegionSyd.Repositories
 
         public void Add(FromAddress fromAddress)
         {
-            string query = "INSERT INTO dbo.FromAddress (StreetName, City, ZipCode, AddressType) VALUES (@StreetName, @City, @ZipCode, @AddressType)"; // Brug dbo her
+            string query = "INSERT INTO dbo.FromAddress (StreetName, City, AddressType, ZipCodeID, ZipCodeNr) VALUES (@StreetName, @City, @AddressType, @ZipCodeID, @ZipCodeNr)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@StreetName", fromAddress.StreetName);
                 command.Parameters.AddWithValue("@City", fromAddress.City);
-                command.Parameters.AddWithValue("@ZipCode", fromAddress.ZipCode);
+                command.Parameters.AddWithValue("@ZipCodeID", fromAddress.ZipCodeID);
                 command.Parameters.AddWithValue("@AddressType", fromAddress.AddressType);
+                command.Parameters.AddWithValue("@ZipCodeNr", fromAddress.ZipCodeNr); // Retter til ZipCodeNr
                 connection.Open();
                 command.ExecuteNonQuery();
             }
@@ -94,15 +97,16 @@ namespace RegionSyd.Repositories
 
         public void Update(FromAddress fromAddress)
         {
-            string query = "UPDATE dbo.FromAddress SET StreetName = @StreetName, City = @City, ZipCode = @ZipCode, AddressType = @AddressType WHERE FromAddressID = @FromAddressID"; // Brug dbo her
+            string query = "UPDATE dbo.FromAddress SET StreetName = @StreetName, City = @City, ZipCodeID = @ZipCodeID, AddressType = @AddressType, ZipCodeNr = @ZipCodeNr WHERE FromAddressID = @FromAddressID";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@StreetName", fromAddress.StreetName);
                 command.Parameters.AddWithValue("@City", fromAddress.City);
-                command.Parameters.AddWithValue("@ZipCode", fromAddress.ZipCode);
+                command.Parameters.AddWithValue("@ZipCodeID", fromAddress.ZipCodeID); // Retter til ZipCodeID
                 command.Parameters.AddWithValue("@AddressType", fromAddress.AddressType);
+                command.Parameters.AddWithValue("@ZipCodeNr", fromAddress.ZipCodeNr); // Retter til ZipCodeNr
                 command.Parameters.AddWithValue("@FromAddressID", fromAddress.FromAddressID);
                 connection.Open();
                 command.ExecuteNonQuery();

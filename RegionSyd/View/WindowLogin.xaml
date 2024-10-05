@@ -1,5 +1,5 @@
-﻿<Window x:Class="RegionSydTeam16.WindowLogin"
-xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window x:Class="RegionSyd.View.WindowLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Login" Height="300" Width="400">
     <Grid>

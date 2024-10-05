@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Extensions.Configuration; // Til indlæsning af konfigurationsindstillinger fra appsettings.json
-using Microsoft.Data.SqlClient; // Til at arbejde med SQL Server via ADO.NET
+using Microsoft.Extensions.Configuration;
+using Microsoft.Data.SqlClient;
+using RegionSyd.View;
 
 namespace RegionSyd
 {
@@ -16,30 +17,16 @@ namespace RegionSyd
 
             // Indlæs konfigurationen fra appsettings.json
             Configuration = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory) // Angiv stien til konfigurationsfilen
+                .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
             // Hent forbindelsesstrengen
             ConnectionString = Configuration.GetConnectionString("DefaultConnection");
 
-            // Her kan du bruge forbindelsesstrengen, f.eks. oprette en SqlConnection
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // Arbejd med databasen her...
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Fejl ved oprettelse af forbindelse: {ex.Message}");
-                }
-            }
-
-            // Opretter og viser hovedvinduet
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            // Opretter og viser loginvinduet
+            WindowLogin loginWindow = new WindowLogin();
+            loginWindow.Show();
         }
     }
 }

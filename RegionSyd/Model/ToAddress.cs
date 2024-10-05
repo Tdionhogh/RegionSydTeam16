@@ -11,6 +11,7 @@ namespace RegionSyd.Model
         public int ToAddressID { get; set; } //PK
         public string StreetName { get; set; } //adresse
         public string City { get; set; } //bynavn
-        public int ZipCode { get; set; } //FK til ZipCode
+        public int ZipCodeID { get; set; } //FK til ZipCode
+        public string ZipCodeNr { get; set; } //Postnummeret
     }
 }

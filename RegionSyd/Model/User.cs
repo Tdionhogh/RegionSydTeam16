@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegionSydTeam16.Model
+namespace RegionSyd.Model
 {
     public class User
     {
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string PassWordHash { get; set; }
-
-
-
     }
 }

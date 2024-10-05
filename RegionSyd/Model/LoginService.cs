@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BCrypt.Net;
 
-namespace RegionSydTeam16.Model
+namespace RegionSyd.Model
 {
     public class LoginService
     {

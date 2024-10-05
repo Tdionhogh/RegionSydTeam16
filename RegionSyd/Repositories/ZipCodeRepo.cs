@@ -34,6 +34,7 @@ namespace RegionSyd.Repositories
                         zipCodes.Add(new ZipCode
                         {
                             ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"],
                             RegionID = (int)reader["RegionID"]
                         });
                     }
@@ -61,6 +62,7 @@ namespace RegionSyd.Repositories
                         zipCode = new ZipCode
                         {
                             ZipCodeID = (int)reader["ZipCodeID"],
+                            ZipCodeNr = (string)reader["ZipCodeNr"],
                             RegionID = (int)reader["RegionID"]
                         };
                     }
@@ -72,11 +74,12 @@ namespace RegionSyd.Repositories
 
         public void Add(ZipCode zipCode)
         {
-            string query = "INSERT INTO dbo.ZipCode (RegionID) VALUES (@RegionID)";
+            string query = "INSERT INTO dbo.ZipCode (ZipCodeNr, RegionID) VALUES (@ZipCodeNr, @RegionID)";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ZipCodeNr", zipCode.ZipCodeNr); // Tilføjet parameter for ZipCodeNr
                 command.Parameters.AddWithValue("@RegionID", zipCode.RegionID);
                 connection.Open();
                 command.ExecuteNonQuery();
@@ -85,13 +88,15 @@ namespace RegionSyd.Repositories
 
         public void Update(ZipCode zipCode)
         {
-            string query = "UPDATE dbo.ZipCode SET RegionID = @RegionID WHERE ZipCodeID = @ZipCodeID";
+            // Opdaterer nu RegionID og korrekt ZipCodeID
+            string query = "UPDATE dbo.ZipCode SET ZipCodeNr = @ZipCodeNr, RegionID = @RegionID WHERE ZipCodeID = @ZipCodeID";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ZipCodeNr", zipCode.ZipCodeNr); // Opdaterer ZipCodeNr
                 command.Parameters.AddWithValue("@RegionID", zipCode.RegionID);
-                command.Parameters.AddWithValue("@ZipCodeID", zipCode.ZipCodeID);
+                command.Parameters.AddWithValue("@ZipCodeID", zipCode.ZipCodeID); // Korrekt ID
                 connection.Open();
                 command.ExecuteNonQuery();
             }
