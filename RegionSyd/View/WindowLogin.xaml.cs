@@ -15,17 +15,16 @@ using RegionSyd.Model;
 using BCrypt.Net;
 
 
-
-namespace RegionSyd.View // Sørg for, at dette matcher den faktiske placering af filen
+namespace RegionSyd.View
 {
     public partial class WindowLogin : Window
     {
-        private LoginService _loginService;
+        private readonly LoginService _loginService;
 
         public WindowLogin()
         {
-            InitializeComponent(); // Sørg for at dette kaldes korrekt
-            _loginService = new LoginService(); // Opretter instans af LoginService
+            InitializeComponent();
+            _loginService = new LoginService(); // Initialize the login service
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -33,26 +32,31 @@ namespace RegionSyd.View // Sørg for, at dette matcher den faktiske placering a
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
-            // Input validering
+            // Input validation
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 LoginResultTextBlock.Text = "Please enter both username and password.";
                 return;
             }
 
-            // Tjekker om brugeren findes og adgangskoden er korrekt
+            // Check if the user exists and the password is correct
             bool isAuthenticated = _loginService.Authenticate(username, password);
 
             if (isAuthenticated)
             {
                 LoginResultTextBlock.Text = "Login successful!";
                 this.Hide();
+
+                // Show MainWindow and close this window
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
+
+                // Optionally, you can close the login window or set it to be hidden
+                // this.Close(); // Uncomment if you want to close instead of hiding
             }
             else
             {
-                LoginResultTextBlock.Text = "Login failed!";
+                LoginResultTextBlock.Text = "Login failed! Please check your username and password.";
             }
         }
     }

@@ -1,32 +1,25 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
 using System.Windows;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Data.SqlClient;
-using RegionSyd.View;
 
 namespace RegionSyd
 {
     public partial class App : Application
     {
-        public static IConfigurationRoot Configuration { get; private set; }
-        public static string? ConnectionString { get; private set; }
+        public static string ConnectionString { get; private set; }
 
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            // Indlæs konfigurationen fra appsettings.json
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
+            // Build configuration from appsettings.json
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-            // Hent forbindelsesstrengen
-            ConnectionString = Configuration.GetConnectionString("DefaultConnection");
-
-            // Opretter og viser loginvinduet
-            WindowLogin loginWindow = new WindowLogin();
-            loginWindow.Show();
+            var configuration = builder.Build();
+            ConnectionString = configuration.GetConnectionString("DefaultConnection");
         }
     }
 }

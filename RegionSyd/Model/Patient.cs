@@ -12,7 +12,8 @@ namespace RegionSyd.Model
         public string FirstName { get; set; } //fornavn til patienten
         public string LastName { get; set; } //efternavn til patienten
         public string CprNumber { get; set; } //cprnummer
-        public string TlfNumber { get; set; } //tlfnummer                          
+        public string TlfNumber { get; set; } //tlfnummer
+        public string PatientName { get; set; } //fulde patient navn
 
     }
 }

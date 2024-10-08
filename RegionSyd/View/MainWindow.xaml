@@ -5,11 +5,8 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- For the ComboBox stack panel -->
             <RowDefinition Height="*"/>
-            <!-- For the DataGrid -->
             <RowDefinition Height="Auto"/>
-            <!-- For the buttons -->
         </Grid.RowDefinitions>
 
         <!-- ComboBoxes for selecting task details -->
@@ -24,19 +21,19 @@
         </StackPanel>
 
         <!-- DataGrid to display tasks -->
-        <DataGrid Name="TasksDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding}" Margin="10" Grid.Row="1">
+        <DataGrid Name="TasksDataGrid" AutoGenerateColumns="False" Margin="10" Grid.Row="1" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Task ID" Binding="{Binding TaskID}" Width="Auto"/>
-                <DataGridTextColumn Header="Region ID" Binding="{Binding RegionID}" Width="Auto"/>
-                <DataGridTextColumn Header="Ambulance ID" Binding="{Binding AmbulanceID}" Width="Auto"/>
-                <DataGridTextColumn Header="Task Type ID" Binding="{Binding TaskTypeID}" Width="Auto"/>
-                <DataGridTextColumn Header="Patient ID" Binding="{Binding PatientID}" Width="Auto"/>
+                <DataGridTextColumn Header="Region" Binding="{Binding RegionName}" Width="Auto"/>
+                <DataGridTextColumn Header="Ambulance" Binding="{Binding AmbulanceNumber}" Width="Auto"/>
+                <DataGridTextColumn Header="Task Type" Binding="{Binding TypeOfTask}" Width="Auto"/>
+                <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="Auto"/>
                 <DataGridTextColumn Header="Pickup Time" Binding="{Binding PickupTime}" Width="Auto"/>
                 <DataGridTextColumn Header="Dropoff Time" Binding="{Binding DropoffTime}" Width="Auto"/>
-                <DataGridTextColumn Header="Task Time" Binding="{Binding TaskTime}" Width="Auto"/>
-                <DataGridTextColumn Header="From Address ID" Binding="{Binding FromAddressID}" Width="Auto"/>
-                <DataGridTextColumn Header="To Address ID" Binding="{Binding ToAddressID}" Width="Auto"/>
-                <DataGridTextColumn Header="Status ID" Binding="{Binding StatusID}" Width="Auto"/>
+                <DataGridTextColumn Header="Task Duration" Binding="{Binding TaskTime}" Width="Auto"/>
+                <DataGridTextColumn Header="From Address" Binding="{Binding FromAddress}" Width="Auto"/>
+                <DataGridTextColumn Header="To Address" Binding="{Binding ToAddress}" Width="Auto"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding StatusName}" Width="Auto"/>
                 <DataGridTextColumn Header="Last Updated" Binding="{Binding LastUpdated}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
